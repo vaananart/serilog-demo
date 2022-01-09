@@ -1,15 +1,17 @@
-using custom_serilog_lib.SetupExtensions;
+var configuation = new ConfigurationBuilder()
+				.AddJsonFile("appsettings.json")
+				.Build();
+
+var testValue = Environment.GetEnvironmentVariable("ASPNETCORE_HOSTINGSTARTUPASSEMBLIES");
+Environment.SetEnvironmentVariable("ASPNETCORE_HOSTINGSTARTUPASSEMBLIES", $"{testValue};{configuation["hostingStartupAssemblies"]}");
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Host.ConfigureLogging(x => x.ClearProviders());
-var configuration = builder.Configuration;
 // Add services to the container.
 
-
 builder.Services
-.AddCustomSerilog(configuration)
 .AddApiVersioning()
 .AddControllers();
+
 var MyAllowSpecificOrigins = "_allowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
@@ -24,6 +26,7 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 app.Logger.LogInformation("Demo Web Application Started.");
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

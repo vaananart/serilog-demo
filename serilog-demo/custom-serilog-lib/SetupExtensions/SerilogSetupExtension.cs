@@ -7,10 +7,10 @@ using Serilog;
 using Serilog.Templates;
 using Serilog.Templates.Themes;
 
-namespace custom_serilog_lib.SetupExtensions;
+namespace CustomSerilogLib.SetupExtensions;
 public static class SerilogSetupExtension
 {
-	public static IServiceCollection AddCustomSerilog(this IServiceCollection serviceCollection, ConfigurationManager configuration)
+	public static IServiceCollection AddCustomSerilog(this IServiceCollection serviceCollection, IConfiguration configuration)
 	{
 		var serviceProvider = serviceCollection.BuildServiceProvider();
 		TelemetryConfiguration? telemetryConfiguration = null;

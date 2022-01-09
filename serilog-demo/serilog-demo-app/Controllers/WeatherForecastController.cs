@@ -2,6 +2,8 @@
 
 using Newtonsoft.Json;
 
+using System.Diagnostics;
+
 namespace serilog_demo_app.Controllers;
 
 [ApiController]
@@ -24,6 +26,7 @@ public class WeatherForecastController : ControllerBase
     [HttpGet]
     public IEnumerable<object> Get()
     {
+		Debugger.Break();
 		_logger.LogInformation("GET request for weather forecast.");
 
         var result = Enumerable.Range(1, 5).Select(index => new
